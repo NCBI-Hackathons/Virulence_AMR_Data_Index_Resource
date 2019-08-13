@@ -8,6 +8,7 @@ Use cases:
 4. FInd accession/contig by domain
 5. Find accession by host
 6. Find similar SRR/contigs
+7. Find accession/contig by seuqence
 
 Compound Searches
 * 1+(2/3/4/5/6)
