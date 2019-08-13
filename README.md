@@ -10,6 +10,6 @@ Use cases:
 6. Find similar SRR/contigs
 
 Compound Searches
-1+(2/3/4/5/6)
-(2/3/4)+(5/6)
-5+6
+* 1+(2/3/4/5/6)
+* (2/3/4)+(5/6)
+* 5+6
