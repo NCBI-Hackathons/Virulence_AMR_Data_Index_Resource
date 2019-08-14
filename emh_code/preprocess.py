@@ -39,5 +39,5 @@ def get_contigs(srr):
     return srr_contigs[srr]
 
 if __name__ == "__main__":
-    print(get_meta(1))
-    print(get_contigs(4))
+    #print(get_meta(1))
+    print(get_contigs("4"))
