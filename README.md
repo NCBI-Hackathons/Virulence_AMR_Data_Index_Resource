@@ -13,6 +13,4 @@ Use cases:
 Compound Searches
 * 1+(2/3/4/5/6)
 * (2/3/4)+(5/6)
-* 5+6
-
-test
+* 5+6 
