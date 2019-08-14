@@ -1,6 +1,9 @@
 # Virulence_AMR_Data_Index
 Indexing and Visualization for AMRs and Virulence Genes in Genomes and Metagenomes
 
+# Purpose
+Lorem ipsum
+
 Use cases:
 1. Find accession/contig by taxonomy
 2. Find accessions/contig by gene (drug resistance, virulence factor)
@@ -15,6 +18,7 @@ Compound Searches
 * (2/3/4)+(5/6)
 * 5+6 
 
+# Workflow
 Q: Should similarity/difference in sequence content correlate with similarity/difference in metadata?
 
 A: Let's find out what it looks like currently!
