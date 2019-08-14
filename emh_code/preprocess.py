@@ -1,6 +1,7 @@
 from random import random
 from random import sample
 from random import randint
+from itertools import product
 
 def rand_str(alph, length): return "".join([sample(alph,1)[0] for _ in range(length)])
 
@@ -9,9 +10,11 @@ alph_meta = "abcdefghijklmnopqrstuvwxyz"
 alph_meta1 = "".join([sample(alph_meta,1)[0] for _ in range(100)])
 alph_meta2 = "".join([sample(alph_meta,1)[0] for _ in range(100)])
 
-alpha_contigs = "GATC"
-alpha_contigs1 = "GGGATTC" 
-alpha_contigs2 = "GATTCC"
+alpha_contigs = "GAT"
+alpha_contigs_freq = 64
+alpha_contigs1 = [sample(["".join(p) for p in product(alpha_contigs, alpha_contigs, alpha_contigs, alpha_contigs)], 1)[0] for _ in range(alpha_contigs_freq)] 
+alpha_contigs = "GAC"
+alpha_contigs2 = [sample(["".join(p) for p in product(alpha_contigs, alpha_contigs, alpha_contigs, alpha_contigs)], 1)[0] for _ in range(alpha_contigs_freq)] 
 
 meta_min_length = 10000
 meta_max_length = 10000

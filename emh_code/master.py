@@ -9,7 +9,7 @@ def perms(lA, lB):
     for a, b in itertools.product(lA, lB):
         pair = tuple(sorted((a, b)))
         result.add(pair)
-    return result
+    return sorted(result)
     
 def write_stats(get_txt, C, l, outfile, ids):
     txt = {iid:get_txt(iid) for iid in ids}
