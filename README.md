@@ -2,13 +2,15 @@
 Indexing and Visualization for AMRs and Virulence Genes in Genomes and Metagenomes
 
 # Purpose
-Lorem ipsum
+Develop a tool capable of evaluating metadata quality in the Sequence Read Archive (SRA), together with the contigs assembled from each of the runs (SRRs).
+
+Provide visualization capabilities to assist in downstream interpretation.
 
 Use cases:
 1. Find accession/contig by taxonomy
 2. Find accessions/contig by gene (drug resistance, virulence factor)
 3. Find accession/contig by genes cluster
-4. FInd accession/contig by domain
+4. Find accession/contig by domain
 5. Find accession by host
 6. Find similar SRR/contigs
 7. Find accession/contig by seuqence
