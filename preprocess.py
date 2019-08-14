@@ -5,7 +5,7 @@ Created on Wed Aug 14 13:22:21 2019
 @author: RC
 """
 import os
-
+from multiprocessing.dummy import Pool as ThreadPool 
 
 def get_table():
 
@@ -30,19 +30,15 @@ def get_fa(fname):
 def get_contigs(srr):
     
     tbl = get_table()
-    print(tbl.columns)
     tbl = tbl[['acc', 'nucleotide_fasta']]
     fnames = list(tbl[tbl.acc == srr].nucleotide_fasta.values)
     
     cat_fas = ''
-    
-    for fname in fnames:
-        
-        try:
-            cat_fas += get_fa(fname)
-        except:
-            print(str(fname)+' failed')
+
+    pool = ThreadPool(256) 
+    results = pool.map(get_fa, fnames)
             
+    cat_fas = "".join(results)
     return cat_fas
     
 def get_meta(srr):
@@ -62,4 +58,5 @@ def get_meta(srr):
 
 if __name__ == '__main__':
     print(get_meta('DRR015824'))
-    print(get_contigs('DRR015824'))
+    contigs = get_contigs('DRR015824')
+    print('downloaded all contigs of length ' + str(len(contigs)))
