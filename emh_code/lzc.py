@@ -4,7 +4,7 @@ import os
 
 alphabet = 'abcdefghijklmnopqrstuvwxyz1234567890'
 alphabet = 'gatc'
-monocase = True
+
 # Create a subsequence frequency dictionary using the Lempel-Ziv technique.
 def lzd(s, d_init={k:0 for k in alphabet}):
     d = dict(d_init.items())
@@ -18,7 +18,7 @@ def lzd(s, d_init={k:0 for k in alphabet}):
 
 # Use the dictionary to calculate string compression.
 def calc_c(s, d):
-    codeword_len = ceil(log(len(d), 4))
+    codeword_len = ceil(log(len(d), len(alphabet)))
     num_codewords = sum(v for v in d.values())
     comp_len = codeword_len * num_codewords
     return min(len(s), comp_len)
@@ -26,32 +26,10 @@ def calc_c(s, d):
 # Syntactic sugar.
 def C(x): return calc_c(x, lzd(x))
 
-# Calculate ncd(x,y) or C(x) based on input parameters.
-# String may be too short to compress, so compressibility is 'amplified' by repeating.
-default_amp = 10
+# Calculate C(x) based on input parameters.
 if __name__ == "__main__":
     xf = sys.argv[1]
-    yf = None
-    if len(sys.argv) > 2:
-        yf = sys.argv[2]
-    amp = default_amp
-    if len(sys.argv) > 3:
-        amp = int(sys.argv[3])
-
     x = open(xf).read()
-    if monocase:
-        x = x.lower()
+    x = x.lower()
     x = ''.join([c for c in x if c in alphabet])
-    x *= amp
-    if yf:
-        y = open(yf).read()
-        if monocase:
-            y = y.lower()
-        y = ''.join([c for c in y if c in alphabet])
-        y *= amp
-
-        print((C(x+y)-min(C(x),C(y)))/max(C(x),C(y)))
-    else:
-        lx = len(x)
-        Cx = C(x)
-        print(Cx/lx)
+    print(len(x), C(x))
