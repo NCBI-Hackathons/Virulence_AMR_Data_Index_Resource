@@ -4,13 +4,14 @@ Created on Wed Aug 14 13:22:21 2019
 
 @author: RC
 """
+import os
 
 
 def get_table():
 
     import pandas as pd
 
-    return pd.read_csv('target_srr_metadata.csv', ',', header = 0)
+    return pd.read_csv('combined_bq_table.csv', ',', header = 0)
 
 
 def get_fa(fname):
@@ -19,18 +20,19 @@ def get_fa(fname):
     
     out = ''
     
-    with open(base_path+fname) as f:
-        for line in f:
-            if not line.startswith('>'):
-                addition = line.strip().rstrip()
-                out += addition
+    for line in os.popen('gsutil cat ' + base_path + fname).readlines():
+        if not line.startswith('>'):
+            addition = line.strip().rstrip()
+            out += addition
     
     return out
 
-def seq_pp(srr):
+def get_contigs(srr):
     
-    tbl = get_table()[['acc', 'nucleotide_fasta']]
-    fnames = list(tbl[tbl.acc == srr].nucleotide_fasta.values())
+    tbl = get_table()
+    print(tbl.columns)
+    tbl = tbl[['acc', 'nucleotide_fasta']]
+    fnames = list(tbl[tbl.acc == srr].nucleotide_fasta.values)
     
     cat_fas = ''
     
@@ -43,7 +45,7 @@ def seq_pp(srr):
             
     return cat_fas
     
-def meta_pp(srr):
+def get_meta(srr):
     
     tbl = get_table()
     tbl = tbl[tbl.acc == srr]
@@ -54,12 +56,10 @@ def meta_pp(srr):
         
         if len(tbl[col].unique()) == 1:
             
-            keep.append(str(tbl[col].unique()))
+            keep.append(str(tbl[col].unique()[0]))
             
     return ' '.join(keep)
 
 if __name__ == '__main__':
-    
-    print('Import me!')
-            
-    
+    print(get_meta('DRR015824'))
+    print(get_contigs('DRR015824'))
