@@ -2,8 +2,10 @@ from math import log, ceil
 import sys
 import os
 
+alphabet = 'gatc'
+monocase = True
 # Create a subsequence frequency dictionary using the Lempel-Ziv technique.
-def lzd(s, d_init={'a':0, 'g':0, 't':0, 'c':0}):
+def lzd(s, d_init={k:0 for k in alphabet}):
     d = dict(d_init.items())
     i = 0
     for n in range(1, len(s)):
@@ -35,10 +37,18 @@ if __name__ == "__main__":
     if len(sys.argv) > 3:
         amp = int(sys.argv[3])
 
-    x = open(xf).read()*amp
+    x = open(xf).read()
+    if monocase:
+        x = x.lower()
+    x = [c for c in x if c in alphabet]
+    x *= amp
     if yf:
-        y = open(yf).read()*amp
-        #print(max(0, C(x)+C(y)-C(x+y)))
+        y = open(yf).read()
+        if monocase:
+            y = y.lower()
+        y = [c for c in y if c in alphabet]
+        y *= amp
+
         print((C(x+y)-min(C(x),C(y)))/max(C(x),C(y)))
     else:
         print(C(x))
