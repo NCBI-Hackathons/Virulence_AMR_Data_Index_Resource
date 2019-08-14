@@ -23,3 +23,7 @@ Q: Should similarity/difference in sequence content correlate with similarity/di
 
 A: Let's find out what it looks like currently!
 ![Metadata Pipeline](https://raw.githubusercontent.com/NCBI-Hackathons/Virulence_AMR_Data_Index/master/Metadata_accessor.png)
+
+# Links
+
+# Authors
