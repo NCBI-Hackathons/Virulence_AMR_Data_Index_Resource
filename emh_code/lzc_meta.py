@@ -24,6 +24,7 @@ def calc_c(s, d):
 
 # Syntactic sugar.
 def C(x): return calc_c(x, lzd(x))
+def l(x): return len(x)
 
 # Calculate C(x) based on input parameters.
 if __name__ == "__main__":
