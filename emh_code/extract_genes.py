@@ -1,4 +1,8 @@
+import sys
 f = open('GCA_000407325.1_Ente_faec_Efm_NY2-2_V2_genomic.gff')
+if len(sys.argv) > 1:
+    filename = sys.argv[1]
+    f = open(filename)
 
 info = []
 accession = None
