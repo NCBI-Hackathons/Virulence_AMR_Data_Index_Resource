@@ -20,7 +20,7 @@ def calc_c(s, d):
     codeword_len = ceil(log(len(d), len(alphabet)))
     num_codewords = sum(v for v in d.values())
     comp_len = codeword_len * num_codewords
-    return min(len(s), comp_len)
+    return comp_len
 
 # Syntactic sugar.
 def C(x): return calc_c(x, lzd(x))
