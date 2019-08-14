@@ -10,11 +10,11 @@ alph_meta = "abcdefghijklmnopqrstuvwxyz"
 alph_meta1 = "".join([sample(alph_meta,1)[0] for _ in range(100)])
 alph_meta2 = "".join([sample(alph_meta,1)[0] for _ in range(100)])
 
-alpha_contigs = "GAT"
+alpha_contigs = "GATCC"
 alpha_contigs_freq = 64
-alpha_contigs1 = [sample(["".join(p) for p in product(alpha_contigs, alpha_contigs, alpha_contigs, alpha_contigs)], 1)[0] for _ in range(alpha_contigs_freq)] 
-alpha_contigs = "GAC"
-alpha_contigs2 = [sample(["".join(p) for p in product(alpha_contigs, alpha_contigs, alpha_contigs, alpha_contigs)], 1)[0] for _ in range(alpha_contigs_freq)] 
+alpha_contigs1 = [sample(["".join(p*randint(1,8)) for p in product(alpha_contigs, alpha_contigs, alpha_contigs, alpha_contigs)], 1)[0] for _ in range(alpha_contigs_freq)] 
+alpha_contigs = "GGATC"
+alpha_contigs2 = [sample(["".join(p*randint(1,8)) for p in product(alpha_contigs, alpha_contigs, alpha_contigs, alpha_contigs)], 1)[0] for _ in range(alpha_contigs_freq)] 
 
 meta_min_length = 10000
 meta_max_length = 10000
@@ -29,8 +29,8 @@ contig_max_length = 10000
 srr_contigs = {}
 srr_contigs["1"] = rand_str(alpha_contigs1, randint(contig_min_length, contig_max_length))
 srr_contigs["2"] = rand_str(alpha_contigs1, randint(contig_min_length, contig_max_length))
-srr_contigs["3"] = rand_str(alpha_contigs1, randint(contig_min_length, contig_max_length))
-srr_contigs["4"] = rand_str(alpha_contigs1, randint(contig_min_length, contig_max_length))
+srr_contigs["3"] = rand_str(alpha_contigs2, randint(contig_min_length, contig_max_length))
+srr_contigs["4"] = rand_str(alpha_contigs2, randint(contig_min_length, contig_max_length))
 
 def get_meta(srr):
     return srr_metas[srr]
