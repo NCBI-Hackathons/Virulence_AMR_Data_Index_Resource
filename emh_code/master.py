@@ -3,6 +3,8 @@ import sys
 import lzc_meta
 import lzc_contig
 import itertools
+import time
+import gzip
 
 def perms(lA, lB): 
     result = set()
@@ -12,7 +14,10 @@ def perms(lA, lB):
     return sorted(result)
     
 def write_stats(get_txt, C, l, outfile, ids):
-    txt = {iid:get_txt(iid) for iid in ids}
+    t0 = time.time()
+    txt = {iid:get_txt(iid)[:1000000] for iid in ids}
+    t1 = time.time()
+    print("download time: " + str(t1-t0))
     sC   = {iid:C(txt[iid]) for iid in ids}
     sCAB = {(idA, idB):C(txt[idA]+txt[idB]) for idA, idB in perms(ids, ids) if not idA == idB}
     sl   = {iid:l(txt[iid]) for iid in ids}
@@ -36,6 +41,9 @@ def write_stats(get_txt, C, l, outfile, ids):
         f.write("\n")
     f.close()
 
+def gzipC(s): return len(gzip.compress(s.encode()))
+def gzipl(s): return len(s.encode())
+
 if __name__ == "__main__":
     filename = 'srrs.txt'
     
@@ -44,5 +52,7 @@ if __name__ == "__main__":
     
     srrs = [srr.strip() for srr in open(filename).readlines()]
     
+    #write_stats(pp.get_meta, gzipC, gzipl, 'meta.txt', srrs)
+    #write_stats(pp.get_contigs, gzipC, gzipl, 'contigs.txt', srrs)
     write_stats(pp.get_meta, lzc_meta.C, lzc_meta.l, 'meta.txt', srrs)
-    write_stats(pp.get_contigs, lzc_meta.C, lzc_meta.l, 'contigs.txt', srrs)
+    write_stats(pp.get_contigs, lzc_contig.C, lzc_contig.l, 'contigs.txt', srrs)
