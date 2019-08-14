@@ -27,7 +27,7 @@ def C(x): return calc_c(x, lzd(x))
 
 # Calculate ncd(x,y) or C(x) based on input parameters.
 # String may be too short to compress, so compressibility is 'amplified' by repeating.
-default_amp = 90
+default_amp = 10
 if __name__ == "__main__":
     xf = sys.argv[1]
     yf = None
@@ -40,13 +40,13 @@ if __name__ == "__main__":
     x = open(xf).read()
     if monocase:
         x = x.lower()
-    x = [c for c in x if c in alphabet]
+    x = ''.join([c for c in x if c in alphabet])
     x *= amp
     if yf:
         y = open(yf).read()
         if monocase:
             y = y.lower()
-        y = [c for c in y if c in alphabet]
+        y = ''.join([c for c in y if c in alphabet])
         y *= amp
 
         print((C(x+y)-min(C(x),C(y)))/max(C(x),C(y)))
