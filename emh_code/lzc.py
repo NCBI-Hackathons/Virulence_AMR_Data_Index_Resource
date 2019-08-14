@@ -2,6 +2,7 @@ from math import log, ceil
 import sys
 import os
 
+alphabet = 'abcdefghijklmnopqrstuvwxyz1234567890'
 alphabet = 'gatc'
 monocase = True
 # Create a subsequence frequency dictionary using the Lempel-Ziv technique.
@@ -51,4 +52,6 @@ if __name__ == "__main__":
 
         print((C(x+y)-min(C(x),C(y)))/max(C(x),C(y)))
     else:
-        print(C(x))
+        lx = len(x)
+        Cx = C(x)
+        print(Cx/lx)
