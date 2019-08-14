@@ -14,3 +14,8 @@ Compound Searches
 * 1+(2/3/4/5/6)
 * (2/3/4)+(5/6)
 * 5+6 
+
+Q: Should similarity/difference in sequence content correlate with similarity/difference in metadata?
+
+A: Let's find out what it looks like currently!
+![Metadata Pipeline](https://raw.githubusercontent.com/NCBI-Hackathons/Virulence_AMR_Data_Index/master/Metadata_accessor.png)
