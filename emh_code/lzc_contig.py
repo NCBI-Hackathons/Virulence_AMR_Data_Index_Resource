@@ -2,7 +2,6 @@ from math import log, ceil
 import sys
 import os
 
-alphabet = 'abcdefghijklmnopqrstuvwxyz1234567890'
 alphabet = 'gatc'
 
 # Create a subsequence frequency dictionary using the Lempel-Ziv technique.
