@@ -28,4 +28,4 @@ To run NCD metric with synthetic data, run the following command from the `emh_c
 ```
 python3 master.py
 ```
-This will generate meta and contigs comparison files comparing four different metadata strings and four different contig strings.  The files should show that strings 1 and 2 are close and strings 3 and 4 are close, and all other pairwise comparisons are farther.
+This will generate meta and contigs comparison files comparing four different metadata strings and four different contig strings.  The files should show that strings 1 and 2 are close and strings 3 and 4 are close, and all other pairwise comparisons are more distant.
