@@ -17,7 +17,7 @@ Use cases:
 
 # Workflow
 The overarching framework of our approach is to enable the integration of various metadata types in a large data structure that consists of multiple tables. An example of such a framework and the various data types that can be supported can be seen below.
-![Metadata Pipeline](https://raw.githubusercontent.com/NCBI-Hackathons/Virulence_AMR_Data_Index/master/Indexing_Figure.pdf)
+![Metadata Pipeline](https://raw.githubusercontent.com/NCBI-Hackathons/Virulence_AMR_Data_Index/master/Indexing_Figure.png)
 
 Q: Should similarity/difference in sequence content correlate with similarity/difference in metadata?
 
