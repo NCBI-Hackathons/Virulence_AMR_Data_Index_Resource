@@ -1,0 +1,1 @@
+All csv files in this directory (except for those with prepended 'PDG000000099') are used as input to the 'Table_merger.R' script. This script merges the various files by the relevant identifier(s).
