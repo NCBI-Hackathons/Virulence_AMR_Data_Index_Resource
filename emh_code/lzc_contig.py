@@ -32,5 +32,4 @@ if __name__ == "__main__":
     x = open(xf).read()
     x = x.lower()
     x = ''.join([c for c in x if c in alphabet])
-    x *= 40
     print(len(x), C(x))
