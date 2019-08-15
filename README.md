@@ -15,11 +15,6 @@ Use cases:
 6. Find similar SRR/contigs
 7. Find accession/contig by seuqence
 
-Compound Searches
-* 1+(2/3/4/5/6)
-* (2/3/4)+(5/6)
-* 5+6 
-
 # Workflow
 Q: Should similarity/difference in sequence content correlate with similarity/difference in metadata?
 
@@ -29,3 +24,4 @@ A: Let's find out what it looks like currently!
 # Links
 
 # Authors
+Eric Holloway, Sergey Nurk, Brett E. Pickett, Ryan Connor	
