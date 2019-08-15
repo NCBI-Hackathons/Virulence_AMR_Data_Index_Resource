@@ -68,4 +68,5 @@ if __name__ == "__main__":
     split_size = 5 
     pairs_splits = [(randint(0, 100000000), pairs[i:i+split_size]) for n, i in enumerate(range(0, len(pairs), split_size))]
     pool = ThreadPool(8)
+    pool.map(meta_wrap, pairs_splits)
     pool.map(contigs_wrap, pairs_splits)

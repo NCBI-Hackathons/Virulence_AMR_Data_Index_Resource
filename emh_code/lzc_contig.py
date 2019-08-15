@@ -1,5 +1,4 @@
 from math import log, ceil
-from pympler import asizeof
 import sys
 import os
 
@@ -18,7 +17,6 @@ def lzd(s, d_init={k:0 for k in alphabet}):
 
 # Use the dictionary to calculate string compression.
 def calc_c(s, d):
-    print('d size: ' + str(asizeof.asizeof(d)))
     codeword_len = ceil(log(len(d), len(alphabet)))
     num_codewords = sum(v for v in d.values())
     comp_len = codeword_len * num_codewords
