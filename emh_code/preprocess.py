@@ -1,43 +1,69 @@
-from random import random
-from random import sample
-from random import randint
-from itertools import product
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Aug 14 13:22:21 2019
 
-def rand_str(alph, length): return "".join([sample(alph,1)[0] for _ in range(length)])
+@author: RC
+"""
+import os
+import subprocess
+from multiprocessing.dummy import Pool as ThreadPool 
 
-alph_meta = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890.?!(){}=,"
-alph_meta = "abcdefghijklmnopqrstuvwxyz"
-alph_meta1 = "".join([sample(alph_meta,1)[0] for _ in range(100)])
-alph_meta2 = "".join([sample(alph_meta,1)[0] for _ in range(100)])
+def get_table():
 
-alpha_contigs = "GATCC"
-alpha_contigs_freq = 64
-alpha_contigs1 = [sample(["".join(p*randint(1,8)) for p in product(alpha_contigs, alpha_contigs, alpha_contigs, alpha_contigs)], 1)[0] for _ in range(alpha_contigs_freq)] 
-alpha_contigs = "GGATC"
-alpha_contigs2 = [sample(["".join(p*randint(1,8)) for p in product(alpha_contigs, alpha_contigs, alpha_contigs, alpha_contigs)], 1)[0] for _ in range(alpha_contigs_freq)] 
+    import pandas as pd
 
-meta_min_length = 10000
-meta_max_length = 10000
-srr_metas = {}
-srr_metas["1"] = rand_str(alph_meta1, randint(meta_min_length, meta_max_length))
-srr_metas["2"] = rand_str(alph_meta1, randint(meta_min_length, meta_max_length))
-srr_metas["3"] = rand_str(alph_meta2, randint(meta_min_length, meta_max_length))
-srr_metas["4"] = rand_str(alph_meta2, randint(meta_min_length, meta_max_length))
+    return pd.read_csv('combined_bq_table.csv', ',', header = 0)
 
-contig_min_length = 10000
-contig_max_length = 10000
-srr_contigs = {}
-srr_contigs["1"] = rand_str(alpha_contigs1, randint(contig_min_length, contig_max_length))
-srr_contigs["2"] = rand_str(alpha_contigs1, randint(contig_min_length, contig_max_length))
-srr_contigs["3"] = rand_str(alpha_contigs2, randint(contig_min_length, contig_max_length))
-srr_contigs["4"] = rand_str(alpha_contigs2, randint(contig_min_length, contig_max_length))
 
-def get_meta(srr):
-    return srr_metas[srr]
+def get_fa(fname):
+    
+    base_path = 'gs://strides-microbial-datasets/enterococcus/files/'
+    local_path = '/home/yters/data/'
+    
+    out = ''
+    print('getting ' + fname)
+    if not os.path.exists(local_path + fname):
+        proc = subprocess.Popen('gsutil cp ' + base_path + fname + ' ' + local_path, shell=True)
+        proc.wait()
+    for num, line in enumerate(open(local_path + fname).readlines()):
+        if not line.startswith('>'):
+            addition = line.strip().rstrip()
+            out += addition
+    print('got ' + fname)
+    
+    return out
 
 def get_contigs(srr):
-    return srr_contigs[srr]
+    
+    tbl = get_table()
+    tbl = tbl[['acc', 'nucleotide_fasta']]
+    fnames = set(tbl[tbl.acc == srr].nucleotide_fasta.values)
+    
+    cat_fas = ''
 
-if __name__ == "__main__":
-    #print(get_meta(1))
-    print(get_contigs("4"))
+    print('retrieving ' + str(len(fnames)) + ' fnames for ' + srr)
+    pool = ThreadPool(8) 
+    results = pool.map(get_fa, fnames)
+            
+    cat_fas = "".join(results)
+    return cat_fas
+    
+def get_meta(srr):
+    
+    tbl = get_table()
+    tbl = tbl[tbl.acc == srr]
+    
+    keep = list()
+    
+    for col in tbl.columns:
+        
+        if len(tbl[col].unique()) == 1:
+            
+            keep.append(str(tbl[col].unique()[0]))
+            
+    return ' '.join(keep)
+
+if __name__ == '__main__':
+    contigs = get_contigs('ERR1945610')
+    contigs = get_contigs('ERR2503944')
+    print('downloaded all contigs of length ' + str(len(contigs)))
