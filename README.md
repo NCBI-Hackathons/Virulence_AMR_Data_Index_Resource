@@ -24,7 +24,8 @@ Q: Should similarity/difference in sequence content correlate with similarity/di
 A: Let's find out what it looks like currently!
 ![Metadata Pipeline](https://raw.githubusercontent.com/NCBI-Hackathons/Virulence_AMR_Data_Index/master/Metadata_accessor.png)
 
-# Links
+# Implementation
+Please see the README files for replicating the analysis described in workflow #2. Note that Python3, R, and access to the Google Cloud Platform will be required.
 
 # Authors
 Eric Holloway, Sergey Nurk, Brett E. Pickett, Ryan Connor	
