@@ -9,3 +9,12 @@ Results can be collected with the following commands:
 cat ncd*/contigs*.txt | sort | uniq > all_contigs.txt
 cat ncd*/meta*.txt | sort | uniq > all_meta.txt
 ```
+
+The script `process_raw_results.py` will combine the meta and contig NCD results into a single file so they can be compared.
+The following commands will combine the results and then visualize them with an R scatterplot.
+```
+python process_raw_results.py
+# Inside R repl
+mc <- read.table('all_meta_contigs_ncd.txt')
+plot(mc[,3], mc[,4])
+```
