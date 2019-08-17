@@ -46,7 +46,7 @@ if __name__ == "__main__":
             tfidf[(t,d)] = tf.get((t,d),0)*idf[t]
     sig = ceil(log(dsz,4))
     avg_sig = {}
-    items = tfidf.items()
+    items = list(tfidf.items())
     shuffle(items)
     for i, ((t, d), v) in enumerate(items[:100000]):
         avg_sig[v] = avg_sig.get(v, []) + [len(t)]
