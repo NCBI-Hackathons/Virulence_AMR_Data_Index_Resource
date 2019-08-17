@@ -14,42 +14,20 @@ def lzd(s, d_init={k:0 for k in alphabet}):
             d[s[i:n]] = 0
             d[s[i:n-1]] = d.get(s[i:n-1], -1) + 1
             i = n
+        if n % 100000 == 0: print(n)
     return d
 
-# Calculate C(x) based on input parameters.
+# Write the LZ dict for opened file.
 if __name__ == "__main__":
-    dna_dir = sys.argv[1]
-    seqs = {}
-    tf = {}
-    idf = {}
-    tfidf = {}
-    dsz = 0
-    for d, xf in enumerate(os.listdir(dna_dir)):
-        x = open(dna_dir+xf).read()
-        x = x.lower()
-        x = ''.join([c for c in x if c in alphabet])
-        seqs[d] = x
-        xd = lzd(x)
-        dsz += len(xd)
-        sig = ceil(log(len(xd), len(alphabet)))
-        for t, v in xd.items():
-            if v > 0:
-                tf[(t, d)] = tf.get((t, d), 0) + 1
-                idf_cnt = idf.get(t, set())
-                idf_cnt.add(d)
-                idf[t] = idf_cnt
-    N = len(seqs)
-    for t, idf_cnt in idf.items():
-        idf[t] = log(N,2)-log(len(idf[t]),2)
-    for d in seqs.keys():
-        for t in idf.keys():
-            tfidf[(t,d)] = tf.get((t,d),0)*idf[t]
-    sig = ceil(log(dsz,4))
-    avg_sig = {}
-    items = list(tfidf.items())
-    shuffle(items)
-    for i, ((t, d), v) in enumerate(items[:100000]):
-        avg_sig[v] = avg_sig.get(v, []) + [len(t)]
-    for k, v in avg_sig.items():
-        avg_sig[k] = sum(v)/float(len(v))
-    print("\n".join([str(k)+" "+str(v) for k,v in avg_sig.items()]))
+    dna_file = sys.argv[1]
+    print("opening "+dna_file)
+    x = open(dna_file).read().lower()
+    x = ''.join([c for c in x if c in alphabet])
+    print("creating dictionary for "+dna_file)
+    xd = lzd(x)
+    print("writing dictionary for "+dna_file)
+    of = open(dna_file+".dict","w")
+    for t, v in sorted(xd.items()):
+        of.write(t + " " + str(v) + "\n")
+    of.close()
+    print("completed decomposition for "+dna_file)
