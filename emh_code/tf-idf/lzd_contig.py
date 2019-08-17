@@ -1,6 +1,7 @@
 from math import log, ceil
 import sys
 import os
+from random import shuffle
 
 alphabet = 'gatc'
 
@@ -32,7 +33,7 @@ if __name__ == "__main__":
         dsz += len(xd)
         sig = ceil(log(len(xd), len(alphabet)))
         for t, v in xd.items():
-            if len(t) > sig and v > 0:
+            if v > 0:
                 tf[(t, d)] = tf.get((t, d), 0) + 1
                 idf_cnt = idf.get(t, set())
                 idf_cnt.add(d)
@@ -44,5 +45,11 @@ if __name__ == "__main__":
         for t in idf.keys():
             tfidf[(t,d)] = tf.get((t,d),0)*idf[t]
     sig = ceil(log(dsz,4))
-    for k, v in sorted(tfidf.items(), key=lambda x:x[1], reverse=False):
-        print(len(k[0])-sig,v)
+    avg_sig = {}
+    items = tfidf.items()
+    shuffle(items)
+    for i, ((t, d), v) in enumerate(items[:100000]):
+        avg_sig[v] = avg_sig.get(v, []) + [len(t)]
+    for k, v in avg_sig.items():
+        avg_sig[k] = sum(v)/float(len(v))
+    print("\n".join([str(k)+" "+str(v) for k,v in avg_sig.items()]))
