@@ -1,1 +1,0 @@
-gsutil -m cp gs://strides-microbial-datasets/enterococcus/files/
