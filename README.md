@@ -13,7 +13,7 @@ Use cases:
 4. Find accession/contig by domain
 5. Find accession by host
 6. Find similar SRR/contigs
-7. Find accession/contig by seuqence
+7. Find accession/contig by sequence
 
 # Workflow
 The overarching framework of our approach is to enable the integration of various metadata types in a large data structure that consists of multiple tables. An example of such a framework and the various data types that can be supported can be seen below.
